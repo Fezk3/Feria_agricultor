@@ -21,6 +21,12 @@ app.use(methodOverride('_method'));
 // para parsear json
 app.use(express.json());
 
+const Usuario = require('./models/usuario');
+const Producto = require('./models/producto');
+const Puesto = require('./models/puesto');
+
+
+
 /*
 
 Notas:
