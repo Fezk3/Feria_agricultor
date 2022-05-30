@@ -54,6 +54,7 @@ app.use(methodOverride('_method'));
 app.use(express.json());
 // para usar la carpeta public como carpeta estatica (js, css, imgs, etc)
 app.use(express.static('public'));
+// para referenciar staticos en plantillas ejs: css -> /css/style.css y js -> /js/script.js
 
 // const Usuario = require('./models/usuario');
 const Producto = require('./models/producto');
