@@ -1,3 +1,5 @@
+// PARA PRODUCTOS -> EN puestos/show.ejs
+
 const lis = document.querySelectorAll('li');
 const agregar = document.querySelector('#agregar');
 
