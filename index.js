@@ -13,33 +13,33 @@ const app = express();
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/feria', { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => {
-    console.log("Connexion a la base de datos exitosa");
-}).catch(err => {
-    console.log("Error al conectar a la base de datos: ");
-    console.log(err)
-})
+    .then(() => {
+        console.log("Connexion a la base de datos exitosa");
+    }).catch(err => {
+        console.log("Error al conectar a la base de datos: ");
+        console.log(err)
+    })
 //---
 
 require('./passport/local-auth');
 
 app.use(morgan('dev'));
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(session({
-  secret: 'mysecretsession',
-  resave: false,
-  saveUninitialized: false
+    secret: 'mysecretsession',
+    resave: false,
+    saveUninitialized: false
 }));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  app.locals.signinMessage = req.flash('signinMessage');
-  app.locals.signupMessage = req.flash('signupMessage');
-  app.locals.user = req.user;
-  console.log(app.locals)
-  next();
+    app.locals.signinMessage = req.flash('signinMessage');
+    app.locals.signupMessage = req.flash('signupMessage');
+    app.locals.user = req.user;
+    console.log(app.locals)
+    next();
 });
 app.use('/', require('./routes/index'));
 //---
@@ -52,10 +52,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 // para parsear json
 app.use(express.json());
+// para usar la carpeta public como carpeta estatica (js, css, imgs, etc)
+app.use(express.static('public'));
+// para referenciar staticos en plantillas ejs: css -> /css/style.css y js -> /js/script.js
 
 // const Usuario = require('./models/usuario');
 const Producto = require('./models/producto');
 const Puesto = require('./models/puesto');
+const { send } = require('process');
 
 
 const categorias = ['Fruta', 'Vegetal', 'Carne'];
@@ -210,4 +214,64 @@ app.delete('/productos/:id', async (req, res) => {
     const { id } = req.params;
     await Producto.findByIdAndDelete(id);
     res.redirect('/productos');
+});
+
+// Rutas de reportes
+app.get('/reportes', async (req, res) => {
+    const productos = await Producto.find({}).populate('puesto');
+    const prod = [];
+    let nombresProd = []
+    let repetidos = [];
+    const repetidos2 = new Map([]);
+
+    for (let producto of productos) {
+        prod.push(producto);
+    }
+
+    // encontrando los productos repetidos
+    for (let i = 0; i < prod.length; i++) {
+        for (let j = i + 1; j < prod.length; j++) {
+            if (prod[i].nombre === prod[j].nombre) {
+                repetidos.push(prod[i]);
+                repetidos.push(prod[j]);
+            }
+        }
+    }
+
+    // insertando en el Map los productos repetidos segun su nombre en una lista respectiva
+    for (let i = 0; i < repetidos.length; i++) {
+        if (repetidos2.has(repetidos[i].nombre)) {
+            if (!repetidos2.get(repetidos[i].nombre).some(obj => obj._id == repetidos[i]._id)) {
+                repetidos2.get(repetidos[i].nombre).push(repetidos[i].puesto.numero);
+            }
+        } else {
+            repetidos2.set(repetidos[i].nombre, [repetidos[i].puesto.numero]);
+        }
+    }
+
+    for (let p of prod) {
+        nombresProd.push(p.nombre);
+    }
+
+    // quitando los duplicados
+    for (let [key, value] of repetidos2) {
+        for (let i = 0; i < value.length; i++) {
+            for (let j = i + 1; j < value.length; j++) {
+                if (value[i] === value[j]) {
+                    value.splice(j, 1);
+                    j--;
+                }
+            }
+        }
+    }
+
+    // imprimiendo el mapa con los productos repetidos y su cantidad
+    for (let [key, value] of repetidos2) {
+        console.log(`${key} : ${value}`);
+    }
+
+    let unicos = [...new Set(nombresProd)]
+
+    res.render('reportes', { unicos, repetidos2 })
+
 });

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reportes</title>
+  </head>
+  <body>
+    <h1>Total de Productos a la venta <%= unicos.length %></h1>
+    <h2>Productos:</h2>
+    <ul>
+      <% for(let producto of unicos) { %>
+      <li><%= producto %></li>
+      <% }%>
+    </ul>
+    <h2>Productos Repetidos que se venden en varios puestos:</h2>
+    <ul>
+      <!-- por cada key, value de repetidos2 imprima un li que diga: el key y el value -->
+      <% for(let [key, value] of repetidos2) { %>
+      <li>
+        <strong>
+          Producto: <%= key %>, es vendido en los puestos numero: <%= value %>.
+        </strong>
+      </li>
+      <% }%>
+    </ul>
+  </body>
+</html>
