@@ -8,7 +8,7 @@
 
   <body>
     <h1>Editando el puesto numero: <% puesto.numero %></h1>
-    <form action="/farms/<%=puesto._id%>?_method=PUT" method="POST">
+    <form action="/puestos/<%=puesto._id%>?_method=PUT" method="POST">
       <div>
         <label for="numero">Numero del puesto</label>
         <input type="number" name="numero" id="numero" placeholder="Numero" />
@@ -20,6 +20,6 @@
       <button>Submit</button>
     </form>
 
-    <a href="/puestos/<%=farm._id%>">Cancelar</a>
+    <a href="/puestos/<%=puesto._id%>">Cancelar</a>
   </body>
 </html>

@@ -7,12 +7,10 @@
   </head>
 
   <body>
-    <%= mesg %>
-
-    <h1><%= categoria %> Productos</h1>
+    <h1>Productos: <%= categorias %></h1>
     <ul>
       <% for(let producto of productos) { %>
-      <li><a href="/products/<%=producto._id%>"><%= producto.numero %></a></li>
+      <li><a href="/productos/<%=producto._id%>"><%= producto.nombre %></a></li>
       <% }%>
     </ul>
 

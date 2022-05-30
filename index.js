@@ -137,7 +137,7 @@ app.put('/puestos/:id', async (req, res) => {
 // index de productos
 app.get('/productos', async (req, res) => {
     const productos = await Producto.find({});
-    res.render('productos/index', { productos });
+    res.render('productos/index', { productos, categorias });
 });
 
 // creando un producto
