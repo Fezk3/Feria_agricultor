@@ -52,6 +52,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 // para parsear json
 app.use(express.json());
+// para usar la carpeta public como carpeta estatica (js, css, imgs, etc)
+app.use(express.static('public'));
 
 // const Usuario = require('./models/usuario');
 const Producto = require('./models/producto');
@@ -232,18 +234,27 @@ app.get('/reportes', async (req, res) => {
     }
 
     /*
-        for (let producto of prod) {
-            for (let producto2 of prod) {
-                if (producto.nombre === producto2.nombre) {
-                    if (repetidos.get(producto.nombre).includes(producto._id)) {
-                        // nada
-                    } else {
-                        repetidos.get(producto.nombre).push(producto._id);
+    for (let producto of prod) {
+        for (let producto2 of prod) {
+            if (producto.nombre === producto2.nombre) {
+                // get the value of the key with the same name as the product.name and check if any of the objects in the array have the same _id as the product.id if so do nothing if not push the product to the array
+                let array = repetidos.get(producto.nombre);
+                if (array.length === 0) {
+                    array.push(producto);
+
+                } else {
+                    for (let producto3 of array) {
+                        if (producto3._id !== producto2._id) {
+                            array.push(producto);
+                        }
                     }
+
                 }
             }
         }
+    }
     */
+
     for (let p of prod) {
         nombresProd.push(p.nombre);
 
