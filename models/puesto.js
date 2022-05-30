@@ -11,7 +11,7 @@ const puestoSchema = new mongoose.Schema({
 });
 
 // middleware para que cuando se elimine una granja, se eliminen los productos de esa granja
-puestochema.post('findOneAndDelete', async (puesto) => {
+puestoSchema.post('findOneAndDelete', async (puesto) => {
     if (puesto.productos.length) {
         await Producto.deleteMany({ _id: { $in: puesto.productos } });
     }
