@@ -14,6 +14,16 @@
       <li><%= producto %></li>
       <% }%>
     </ul>
-    <h2>Productos Repetidos:</h2>
+    <h2>Productos Repetidos que se venden en varios puestos:</h2>
+    <ul>
+      <!-- por cada key, value de repetidos2 imprima un li que diga: el key y el value -->
+      <% for(let [key, value] of repetidos2) { %>
+      <li>
+        <strong>
+          Producto: <%= key %>, es vendido en los puestos numero: <%= value %>.
+        </strong>
+      </li>
+      <% }%>
+    </ul>
   </body>
 </html>

@@ -218,63 +218,60 @@ app.delete('/productos/:id', async (req, res) => {
 
 // Rutas de reportes
 app.get('/reportes', async (req, res) => {
-    const productos = await Producto.find({});
-    let puestosproductoigual = 0;
+    const productos = await Producto.find({}).populate('puesto');
     const prod = [];
     let nombresProd = []
-
-    const repetidos = new Map([
-        ["pera", []],
-        ["manzana", []],
-        ["durazno", []],
-        ["tomate", []],
-    ]);
+    let repetidos = [];
+    const repetidos2 = new Map([]);
 
     for (let producto of productos) {
         prod.push(producto);
     }
 
-    /*
-    for (let producto of prod) {
-        for (let producto2 of prod) {
-            if (producto.nombre === producto2.nombre) {
-                // get the value of the key with the same name as the product.name and check if any of the objects in the array have the same _id as the product.id if so do nothing if not push the product to the array
-                let array = repetidos.get(producto.nombre);
-                if (array.length === 0) {
-                    array.push(producto);
+    // encontrando los productos repetidos
+    for (let i = 0; i < prod.length; i++) {
+        for (let j = i + 1; j < prod.length; j++) {
+            if (prod[i].nombre === prod[j].nombre) {
+                repetidos.push(prod[i]);
+                repetidos.push(prod[j]);
+            }
+        }
+    }
 
-                } else {
-                    for (let producto3 of array) {
-                        if (producto3._id !== producto2._id) {
-                            array.push(producto);
-                        }
-                    }
+    // insertando en el Map los productos repetidos segun su nombre en una lista respectiva
+    for (let i = 0; i < repetidos.length; i++) {
+        if (repetidos2.has(repetidos[i].nombre)) {
+            if (!repetidos2.get(repetidos[i].nombre).some(obj => obj._id == repetidos[i]._id)) {
+                repetidos2.get(repetidos[i].nombre).push(repetidos[i].puesto.numero);
+            }
+        } else {
+            repetidos2.set(repetidos[i].nombre, [repetidos[i].puesto.numero]);
+        }
+    }
 
+    for (let p of prod) {
+        nombresProd.push(p.nombre);
+    }
+
+    // quitando los duplicados
+    for (let [key, value] of repetidos2) {
+        for (let i = 0; i < value.length; i++) {
+            for (let j = i + 1; j < value.length; j++) {
+                if (value[i] === value[j]) {
+                    value.splice(j, 1);
+                    j--;
                 }
             }
         }
     }
-    */
 
-    for (let p of prod) {
-        nombresProd.push(p.nombre);
-
-        /* for (let i = 0; i < repetidos.size; i++) {
- 
-             if (repetidos.has(p.nombre)) {
-                 repetidos.get(p.nombre).push(p);
-             }
- 
-         }*/
+    // imprimiendo el mapa con los productos repetidos y su cantidad
+    for (let [key, value] of repetidos2) {
+        console.log(`${key} : ${value}`);
     }
-
-    repetidos.forEach((value, key) => {
-        console.log(value, key);
-    });
 
     let unicos = [...new Set(nombresProd)]
 
-
-    res.render('reportes', { unicos, repetidos })
+    res.render('reportes', { unicos, repetidos2 })
 
 });
