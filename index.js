@@ -13,33 +13,33 @@ const app = express();
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/feria', { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => {
-    console.log("Connexion a la base de datos exitosa");
-}).catch(err => {
-    console.log("Error al conectar a la base de datos: ");
-    console.log(err)
-})
+    .then(() => {
+        console.log("Connexion a la base de datos exitosa");
+    }).catch(err => {
+        console.log("Error al conectar a la base de datos: ");
+        console.log(err)
+    })
 //---
 
 require('./passport/local-auth');
 
 app.use(morgan('dev'));
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(session({
-  secret: 'mysecretsession',
-  resave: false,
-  saveUninitialized: false
+    secret: 'mysecretsession',
+    resave: false,
+    saveUninitialized: false
 }));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  app.locals.signinMessage = req.flash('signinMessage');
-  app.locals.signupMessage = req.flash('signupMessage');
-  app.locals.user = req.user;
-  console.log(app.locals)
-  next();
+    app.locals.signinMessage = req.flash('signinMessage');
+    app.locals.signupMessage = req.flash('signupMessage');
+    app.locals.user = req.user;
+    console.log(app.locals)
+    next();
 });
 app.use('/', require('./routes/index'));
 //---
@@ -56,6 +56,7 @@ app.use(express.json());
 // const Usuario = require('./models/usuario');
 const Producto = require('./models/producto');
 const Puesto = require('./models/puesto');
+const { send } = require('process');
 
 
 const categorias = ['Fruta', 'Vegetal', 'Carne'];
@@ -210,4 +211,58 @@ app.delete('/productos/:id', async (req, res) => {
     const { id } = req.params;
     await Producto.findByIdAndDelete(id);
     res.redirect('/productos');
+});
+
+// Rutas de reportes
+app.get('/reportes', async (req, res) => {
+    const productos = await Producto.find({});
+    let puestosproductoigual = 0;
+    const prod = [];
+    let nombresProd = []
+
+    const repetidos = new Map([
+        ["pera", []],
+        ["manzana", []],
+        ["durazno", []],
+        ["tomate", []],
+    ]);
+
+    for (let producto of productos) {
+        prod.push(producto);
+    }
+
+    /*
+        for (let producto of prod) {
+            for (let producto2 of prod) {
+                if (producto.nombre === producto2.nombre) {
+                    if (repetidos.get(producto.nombre).includes(producto._id)) {
+                        // nada
+                    } else {
+                        repetidos.get(producto.nombre).push(producto._id);
+                    }
+                }
+            }
+        }
+    */
+    for (let p of prod) {
+        nombresProd.push(p.nombre);
+
+        /* for (let i = 0; i < repetidos.size; i++) {
+ 
+             if (repetidos.has(p.nombre)) {
+                 repetidos.get(p.nombre).push(p);
+             }
+ 
+         }*/
+    }
+
+    repetidos.forEach((value, key) => {
+        console.log(value, key);
+    });
+
+    let unicos = [...new Set(nombresProd)]
+
+
+    res.render('reportes', { unicos, repetidos })
+
 });
