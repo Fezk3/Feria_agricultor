@@ -1,16 +1,48 @@
 const express = require('express');
-const app = express();
+const path = require('path');
+const engine = require('ejs-mate');
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 
-mongoose.connect('mongodb://localhost:27017/feria', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log("Connexion a la base de datos exitosa");
-    })
-    .catch(err => {
-        console.log("Error al conectar a la base de datos: ");
-        console.log(err)
-    })
+const app = express();
+
+
+
+mongoose.connect('mongodb://127.0.0.1:27017/feria', { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+    console.log("Connexion a la base de datos exitosa");
+}).catch(err => {
+    console.log("Error al conectar a la base de datos: ");
+    console.log(err)
+})
+//---
+
+require('./passport/local-auth');
+
+app.use(morgan('dev'));
+app.use(express.urlencoded({extended: false}));
+app.use(session({
+  secret: 'mysecretsession',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  app.locals.signinMessage = req.flash('signinMessage');
+  app.locals.signupMessage = req.flash('signupMessage');
+  app.locals.user = req.user;
+  console.log(app.locals)
+  next();
+});
+app.use('/', require('./routes/index'));
+//---
 
 // para usar ejs como motor de plantillas
 app.set('view engine', 'ejs');
@@ -21,7 +53,7 @@ app.use(methodOverride('_method'));
 // para parsear json
 app.use(express.json());
 
-const Usuario = require('./models/usuario');
+// const Usuario = require('./models/usuario');
 const Producto = require('./models/producto');
 const Puesto = require('./models/puesto');
 
