@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todos los Puestos</title>
+  </head>
+
+  <body>
+    <h1>Puestos Registrados</h1>
+    <ul>
+      <% for(let pues of puestos) { %>
+      <li>
+        Numero:
+        <strong>
+          <a href="/puestos/<%=pues._id%>"><%= pues.numero %></a>
+        </strong>
+      </li>
+      <% }%>
+    </ul>
+  </body>
+</html>

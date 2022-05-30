@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Producto nuevo</title>
+  </head>
+
+  <body>
+    <h1>
+      Producto nuevo para el puesto numero:
+      <strong><%= puesto.numero %></strong>
+    </h1>
+    <form action="/puestos/<%= puesto._id %>/productos" method="POST">
+      <label for="nombre">Nombre del producto</label>
+      <input type="text" name="nombre" id="nombre" placeholder="Nombre" />
+      <label for="precio">Precio</label>
+      <input type="number" id="precio" name="precio" placeholder="Precio" />
+      <label for="categoria">Seleccione la Categoria</label>
+      <select name="categoria" id="categoria">
+        <% for(let categoria of categorias){ %>
+        <option value="<%=categoria%>"><%=categoria%></option>
+        <% } %>
+      </select>
+      <button>Crear</button>
+    </form>
+    <a href="/puestos/<%= puesto._id %>"
+      >Volver al puesto<%= puesto.numero %>
+    </a>
+  </body>
+</html>

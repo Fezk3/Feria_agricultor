@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todos los Productos disponibles</title>
+  </head>
+
+  <body>
+    <%= mesg %>
+
+    <h1><%= categoria %> Productos</h1>
+    <ul>
+      <% for(let producto of productos) { %>
+      <li><a href="/products/<%=producto._id%>"><%= producto.numero %></a></li>
+      <% }%>
+    </ul>
+
+    <a href="/productos">Regresar a todos los productos</a>
+  </body>
+</html>

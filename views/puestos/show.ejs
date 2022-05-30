@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Puesto nuemro <%= puesto.numero %></title>
+  </head>
+
+  <body>
+    <h1>Numero de puesto: <%= puesto.numero %></h1>
+    <h2>Propietario: <%= puesto.duenio %></h2>
+    <h3>Productos que vende:</h3>
+    <ul>
+      <% for(let producto of puesto.productos) { %>
+      <li>
+        <a href="/productos/<%=producto._id%>"><%= producto.nombre %></a>
+      </li>
+      <% }%>
+    </ul>
+    <a href="/puestos/<%=puesto._id%>/productos/new">Agregar Producto</a>
+    <a href="/puestos">Volver a los puestos</a>
+    <a href="/puestos/<%=puesto._id%>/edit">Editar puesto</a>
+    <div>
+      <form action="/puestos/<%=puesto._id%>?_method=DELETE" method="POST">
+        <button>Eliminar este puesto</button>
+      </form>
+    </div>
+  </body>
+</html>

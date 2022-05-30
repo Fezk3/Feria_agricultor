@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edicion del puesto <% puesto.numero %></title>
+  </head>
+
+  <body>
+    <h1>Editando el puesto numero: <% puesto.numero %></h1>
+    <form action="/farms/<%=puesto._id%>?_method=PUT" method="POST">
+      <div>
+        <label for="numero">Numero del puesto</label>
+        <input type="number" name="numero" id="numero" placeholder="Numero" />
+      </div>
+      <div>
+        <label for="due">Duenio:</label>
+        <input type="text" id="due" name="duenio" placeholder="duenio" />
+      </div>
+      <button>Submit</button>
+    </form>
+
+    <a href="/puestos/<%=farm._id%>">Cancelar</a>
+  </body>
+</html>

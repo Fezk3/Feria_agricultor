@@ -10,6 +10,19 @@
   <body>
     <h1>Bienvenido!</h1>
 
-    <%- include('partials/bootstrapjs.ejs') %>
+    <% for(let puesto of puestos) { %>
+    <ul>
+      <h2>
+        Puesto numero:
+        <a href="/puestos/<%=puesto._id%>"><%= puesto.numero %></a>
+      </h2>
+      <h3>Productos:</h3>
+      <ul>
+        <% for(let product of puesto.products) { %>
+        <li><%= product.nombre %></li>
+        <% }%>
+      </ul>
+    </ul>
+    <% }%> <%- include('partials/bootstrapjs.ejs') %>
   </body>
 </html>
