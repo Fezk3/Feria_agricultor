@@ -3,29 +3,115 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/bootstrapcss.ejs') %>
+    <link rel="stylesheet" href="/css/style.css" />
     <title>Puesto nuemro <%= puesto.numero %></title>
   </head>
 
   <body>
-    <h1>Numero de puesto: <%= puesto.numero %></h1>
-    <h2>Propietario: <%= puesto.duenio %></h2>
-    <h3>Productos que vende:</h3>
-    <ul>
-      <% for(let producto of puesto.productos) { %>
-      <li>
-        <a href="/productos/<%=producto._id%>"><%= producto.nombre %></a>
-      </li>
-      <% }%>
-    </ul>
-    <a href="/puestos/<%=puesto._id%>/productos/new" id="#agregar"
-      >Agregar Producto</a
-    >
-    <a href="/puestos">Volver a los puestos</a>
-    <a href="/puestos/<%=puesto._id%>/edit">Editar puesto</a>
-    <div>
-      <form action="/puestos/<%=puesto._id%>?_method=DELETE" method="POST">
-        <button>Eliminar este puesto</button>
-      </form>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/"
+            ><img
+              src="../imgs/logo.png"
+              width="64"
+              alt="64"
+              class="d-inline-block align-middle mr-2"
+          /></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNavAltMarkup"
+          >
+            <% if (!user) { %>
+            <a href="/signin" class="btn btn-primary m-2">Iniciar sesión</a>
+            <% } else { %>
+            <a href="/logout" class="btn btn-danger m-2">Logout</a>
+            <a href="/puestos" class="btn btn-success m-2">Puestos</a>
+            <a href="/reportes" class="btn btn-info m-2">Reportes</a>
+            <% } %> <%if (signinMessage) {%>
+            <p><%= signinMessage %></p>
+            <% } %> <%if (signupMessage) {%>
+            <p><%= signupMessage %></p>
+            <% } %>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="text-center mt-3">
+            Numero de puesto: <%= puesto.numero %>
+          </h1>
+          <h2 class="text-center mt-3">Propietario: <%= puesto.duenio %></h2>
+          <h3 class="text-center mt-3">Productos que vende:</h3>
+        </div>
+      </div>
     </div>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="npuestos">
+            <ul>
+              <% for(let producto of puesto.productos) { %>
+              <li>
+                <h3 class="uppercase">
+                  <a href="/productos/<%=producto._id%>" class="btn btn-secondary"
+                    ><%= producto.nombre %></a
+                  >
+                </h3>
+              </li>
+              <% }%>
+            </ul>
+            <br>
+            <br>
+            <center>
+            <a
+              href="/puestos/<%=puesto._id%>/productos/new"
+              id="#agregar"
+              class="boton btn btn-success mt-3"
+              >Agregar</a
+            >
+            <br />
+            <a href="/puestos" class="boton btn btn-primary mt-3" id="#volver"
+              >Volver</a
+            >
+            <br />
+            <a
+              href="/puestos/<%=puesto._id%>/edit"
+              class="boton btn btn-info mt-3"
+              id="#editar"
+              >Editar puesto</a
+            >
+            <br />
+            <div>
+              <form
+                action="/puestos/<%=puesto._id%>?_method=DELETE"
+                method="POST"
+                id="#eliminar"
+              >
+                <button class="boton btn btn-danger mt-3">Eliminar puesto</button>
+              </form>
+            </div>
+          </center>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../partials/bootstrapjs.ejs') %>
   </body>
 </html>
