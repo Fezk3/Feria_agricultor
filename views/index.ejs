@@ -8,23 +8,49 @@
     <title>Feria del Agricultor</title>
   </head>
   <body>
-    <h1>Bienvenido!</h1>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.ejs"><img src="" width="" alt="" class="d-inline-block align-middle mr-2" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+              <a href="/puestos" class="btn btn-success mt-1">Ir a los puestos (Admin)</a>
+            </div>
+        </div>
+    </nav>
+    </header>
+    
+    <center>
+      <h1 class="mt-3">¡Bienvenido a la feria del agricultor!</h1>
+    </center>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Puesto:</h1> 
 
-    <a href="/puestos">Ir a los puestos (Admin)</a>
+          <div class = "puesto mt-3" style="background-color: rgb(245, 245, 245);"> 
+            <hr>
+          <% for(let puesto of puestos) { %>
+            <ul>
+              <h5>
+                Numero: <%= puesto.numero %>
+              </h5>
+              <h6>Productos:</h6>
+              <ul>
+               
+           <% for(let product of puesto.productos) { %>
+            <li><%= product.nombre %></li>           
+            <% }%>
+          </ul>
+        </ul>
+         <% }%> <%- include('partials/bootstrapjs.ejs') %>
+        </div>
+    </div>
+  </div>
+</div>
 
-    <% for(let puesto of puestos) { %>
-    <ul>
-      <h2>
-        Puesto numero:
-        <%= puesto.numero %>
-      </h2>
-      <h3>Productos:</h3>
-      <ul>
-        <% for(let product of puesto.productos) { %>
-        <li><%= product.nombre %></li>
-        <% }%>
-      </ul>
-    </ul>
-    <% }%> <%- include('partials/bootstrapjs.ejs') %>
+
   </body>
 </html>

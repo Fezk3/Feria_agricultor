@@ -3,23 +3,65 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+  crossorigin="anonymous"
+/>
     <title>Edicion del puesto <% puesto.numero %></title>
   </head>
 
   <body>
-    <h1>Editando el puesto numero: <% puesto.numero %></h1>
-    <form action="/puestos/<%=puesto._id%>?_method=PUT" method="POST">
-      <div>
-        <label for="numero">Numero del puesto</label>
-        <input type="number" name="numero" id="numero" placeholder="Numero" />
-      </div>
-      <div>
-        <label for="due">Duenio:</label>
-        <input type="text" id="due" name="duenio" placeholder="duenio" />
-      </div>
-      <button>Submit</button>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.ejs"><img src="" width="" alt="" class="d-inline-block align-middle mr-2" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+              <a href="/puestos" class="btn btn-success mt-1">Ir a los puestos (Admin)</a>
+            </div>
+        </div>
+    </nav>
+    </header>
+<center>
+  <h1>Editando el puesto numero: <%= puesto.numero %></h1>
+</center>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="editar" style="background-color: rgb(245, 245, 245)">
+            <form action="/puestos/<%=puesto._id%>?_method=PUT" method="POST">
+              <div>
+                <label for="numero" style="min-width: 10%;margin: 10px">Numero del puesto: </label>
+                <input type="number" name="numero" id="numero" value=<%= puesto.numero %> placeholder="Numero" />
+              </div>
+  
+              <div>
+                <label for="due ">Dueño:</label>
+                <input type="text" id="due" name="duenio" value=<%= puesto.duenio %> placeholder="dueño" />
+              </div>
+              <br>
+                 
     </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <center>
+        <button class="btn btn-primary mt-3">Agregar </button>
+ 
 
-    <a href="/puestos/<%=puesto._id%>">Cancelar</a>
+    <a href="/puestos/<%=puesto._id%>" class="btn btn-danger mt-3">Cancelar</a>
+  </center>
+
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
   </body>
 </html>

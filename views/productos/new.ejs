@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  />
     <title>Producto nuevo</title>
   </head>
 
@@ -11,21 +17,41 @@
       Producto nuevo para el puesto numero:
       <strong><%= puesto.numero %></strong>
     </h1>
-    <form action="/puestos/<%= puesto._id %>/productos" method="POST">
-      <label for="nombre">Nombre del producto</label>
-      <input type="text" name="nombre" id="nombre" placeholder="Nombre" />
-      <label for="precio">Precio</label>
-      <input type="number" id="precio" name="precio" placeholder="Precio" />
-      <label for="categoria">Seleccione la Categoria</label>
-      <select name="categoria" id="categoria">
-        <% for(let categoria of categorias){ %>
-        <option value="<%=categoria%>"><%=categoria%></option>
-        <% } %>
-      </select>
-      <button>Crear</button>
-    </form>
-    <a href="/puestos/<%= puesto._id %>"
-      >Volver al puesto<%= puesto.numero %>
-    </a>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="nuevo" style="background-color: rgb(245, 245, 245);">
+            <form action="/puestos/<%= puesto._id %>/productos" method="POST">
+              <label for="nombre">Nombre del producto</label>
+              <input type="text" name="nombre" id="nombre" placeholder="Nombre" style="min-width: 10%;  margin: 5px"/>
+              <br>
+              <label for="precio">Precio</label>
+              <input type="number" id="precio" name="precio" placeholder="Precio" style="min-width: 10%;  margin: 5px"/>
+              <br>
+              <label for="categoria">Seleccione la Categoria</label>
+              <select name="categoria" id="categoria">
+                <% for(let categoria of categorias){ %>
+                <option value="<%=categoria%>"><%=categoria%></option>
+                <% } %>
+              </select>
+              <br>
+              <center>
+                <button class="btn btn-primary"  style="min-width: 5%; font-size: smaller; margin: 10px">Crear</button>
+              </center>
+              <div></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<center>
+  <a href="/puestos/<%= puesto._id %>" class="btn btn-primary mt-3">Volver al puesto: <%= puesto.numero %></a>
+</center>
+
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+crossorigin="anonymous"
+></script>
   </body>
 </html>

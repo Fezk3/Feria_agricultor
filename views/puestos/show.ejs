@@ -3,27 +3,70 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Puesto nuemro <%= puesto.numero %></title>
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  />
+    <title>Puesto numero <%= puesto.numero %></title>
   </head>
 
   <body>
-    <h1>Numero de puesto: <%= puesto.numero %></h1>
-    <h2>Propietario: <%= puesto.duenio %></h2>
-    <h3>Productos que vende:</h3>
-    <ul>
-      <% for(let producto of puesto.productos) { %>
-      <li>
-        <a href="/productos/<%=producto._id%>"><%= producto.nombre %></a>
-      </li>
-      <% }%>
-    </ul>
-    <a href="/puestos/<%=puesto._id%>/productos/new">Agregar Producto</a>
-    <a href="/puestos">Volver a los puestos</a>
-    <a href="/puestos/<%=puesto._id%>/edit">Editar puesto</a>
-    <div>
-      <form action="/puestos/<%=puesto._id%>?_method=DELETE" method="POST">
-        <button>Eliminar este puesto</button>
+    
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img src="" width="" alt="" class="d-inline-block align-middle mr-2" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+              <a href="/" class="btn btn-success mt-1">Página principal</a>
+            </div>
+        </div>
+    </nav>
+    </header>
+
+    <div class="container" style="background-color: rgb(245, 245, 245)";>
+      <div class="row">
+        <div class="col">
+          <div class="show">
+            <h5 class="mt-3">Numero de puesto: <%= puesto.numero %></h5>
+            <h5>Propietario: <%= puesto.duenio %></h5>
+            <h5>Productos que vende:</h5>
+            <ul>
+              <% for(let producto of puesto.productos) { %>
+              <li>
+                <a href="/productos/<%=producto._id%>"><%= producto.nombre %></a>
+              </li>
+              <% }%>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <center>
+      <a href="/puestos/<%=puesto._id%>/productos/new" class="btn btn-primary mt-3" style="min-width: 12%; font-size: smaller;">Agregar Producto</a>      
+      <br>
+      <a href="/puestos" class="btn btn-primary" style="min-width: 12%;font-size: smaller; margin: 5px">Volver a los puestos</a>
+      <br>
+      <a href="/puestos/<%=puesto._id%>/edit" class="btn btn-primary" style="min-width: 12%;font-size: smaller; margin: 5x">Editar puesto</a>
+      <div>
+        <form action="/puestos/<%=puesto._id%>?_method=DELETE" method="POST">
+            <button class="btn btn-danger" style="min-width: 12%;font-size: smaller; margin: 5px">Eliminar puesto</button>
+          </center>
+          
+
       </form>
     </div>
+
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
   </body>
 </html>
