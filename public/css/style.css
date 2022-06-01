@@ -18,4 +18,19 @@ h1{
     padding-bottom: 5%;
 
 }
+.boton{
+    
+    width: 30%;
+    margin: 0.5%;
+}
+@media(min-width: 768px){
+    .boton{
+    
+        width: 15%;
+        margin: 0.5%;
+    }
+}
+.uppercase{
+    text-transform: uppercase;
+}
 
