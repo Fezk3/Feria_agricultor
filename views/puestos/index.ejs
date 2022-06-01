@@ -23,30 +23,32 @@
           <div class="puesto">
             <ul>
               <% for(let pues of puestos) { %>
-                <div class="npuestos">
-                  <li>
+              <div class="npuestos">
+                <li>
+                  <h4>
                     Numero:
                     <strong>
                       <a href="/puestos/<%=pues._id%>"><%= pues.numero %></a>
-                    
                     </strong>
-                  </li>
-                </div>
+                  </h4>
+                </li>
+              </div>
 
-                <% }%>
-              </ul>
-            </div>
+              <% }%>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    
 
     <div class="container">
       <div class="row justify-content align-center">
         <div class="col">
           <center>
-            <a href="/puestos/new" class="btn btn-primary mt-3" id="agregar">Agregar un nuevo Puesto</a>
-          </center>        
+            <a href="/puestos/new" class="btn btn-primary mt-3" id="agregar"
+              >Agregar un nuevo Puesto</a
+            >
+          </center>
         </div>
       </div>
     </div>
