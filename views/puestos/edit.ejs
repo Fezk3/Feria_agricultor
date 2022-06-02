@@ -3,23 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/bootstrapcss.ejs') %>
+    <link rel="stylesheet" href="/css/style.css" />
     <title>Edicion del puesto <% puesto.numero %></title>
   </head>
 
   <body>
-    <h1>Editando el puesto numero: <% puesto.numero %></h1>
-    <form action="/puestos/<%=puesto._id%>?_method=PUT" method="POST">
-      <div>
-        <label for="numero">Numero del puesto</label>
-        <input type="number" name="numero" id="numero" placeholder="Numero" />
+    <%- include('../partials/navbar.ejs') %>
+    <div class="container">
+      <div class="row justify-content align-center">
+        <div class="col ">
+          <div class="puestos ">
+           <center><h1 class=" mt-4">Editando el puesto numero: <%=puesto.numero %></h1></center> 
+            <form action="/puestos/<%=puesto._id%>?_method=PUT" method="POST">
+              <div>
+                <label for="numero" class="form_contenedor mt-3" >Numero del puesto: </label>
+                <input class="form_contenedor" type="number" name="numero" id="numero" placeholder="Numero" value=<%=puesto.numero%>>
+              </div>
+              <div>
+                <label for="due" class="form_contenedor">Dueño:</label>
+                <input class="form_contenedor" type="text" id="due" name="duenio" placeholder="duenio" value=<%=puesto.duenio%>>
+              </div>
+              <center><button class="boton btn btn-primary mt-3">Agregar</button></center>
+            </form>
+        <center><a href="/puestos/<%=puesto._id%>" class="boton btn btn-danger">Cancelar</a></center>
+          </div>
+        </div>
       </div>
-      <div>
-        <label for="due">Duenio:</label>
-        <input type="text" id="due" name="duenio" placeholder="duenio" />
-      </div>
-      <button>Submit</button>
-    </form>
-
-    <a href="/puestos/<%=puesto._id%>">Cancelar</a>
+    </div>
+  
+    <%- include('../partials/bootstrapjs.ejs') %>
   </body>
 </html>

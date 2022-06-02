@@ -33,4 +33,12 @@ h1{
 .uppercase{
     text-transform: uppercase;
 }
+.form_contenedor{
+    font-size: 1.3rem;
+    width: 15%;
+    display:grid;
+    gap: 1em;
+    grid-auto-columns: 100%; 
+}
+
 

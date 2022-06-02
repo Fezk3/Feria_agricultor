@@ -9,46 +9,7 @@
   </head>
 
   <body>
-    <header>
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/"
-            ><img
-              src="../imgs/logo.png"
-              width="64"
-              alt="64"
-              class="d-inline-block align-middle mr-2"
-          /></a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div
-            class="collapse navbar-collapse justify-content-end"
-            id="navbarNavAltMarkup"
-          >
-            <% if (!user) { %>
-            <a href="/signin" class="btn btn-primary m-2">Iniciar sesión</a>
-            <% } else { %>
-            <a href="/logout" class="btn btn-danger m-2">Logout</a>
-            <a href="/puestos" class="btn btn-success m-2">Puestos</a>
-            <a href="/reportes" class="btn btn-info m-2">Reportes</a>
-            <% } %> <%if (signinMessage) {%>
-            <p><%= signinMessage %></p>
-            <% } %> <%if (signupMessage) {%>
-            <p><%= signupMessage %></p>
-            <% } %>
-          </div>
-        </div>
-      </nav>
-    </header>
+    <%- include('../partials/navbar.ejs') %>
 
     <div class="container">
       <div class="row">
