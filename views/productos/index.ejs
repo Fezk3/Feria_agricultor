@@ -3,17 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/bootstrapcss.ejs') %>
+    <link rel="stylesheet" href="/css/style.css" />
     <title>Todos los Productos disponibles</title>
   </head>
 
   <body>
-    <h1>Productos: <%= categorias %></h1>
-    <ul>
-      <% for(let producto of productos) { %>
-      <li><a href="/productos/<%=producto._id%>"><%= producto.nombre %></a></li>
-      <% }%>
-    </ul>
-
-    <a href="/puestos">Ir a los puestos</a>
+    <%- include('../partials/navbar.ejs') %>
+    <div class="container">
+      <div class="row">
+        <div class="col mt-3">
+          <h1>Productos: <%= categorias %></h1>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="puestos">
+            <ul>
+              <h4 class="mt-3">
+                <% for(let producto of productos) { %>
+                <li>
+                  <a href="/productos/<%=producto._id%>"
+                    ><%= producto.nombre %></a
+                  >
+                </li>
+                <% }%>
+              </h4>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <center>
+      <a href="/puestos" class="boton btn btn-primary mt-3">Ir a los puestos</a>
+    </center>
+    <%- include('../partials/bootstrapjs.ejs') %>
   </body>
 </html>

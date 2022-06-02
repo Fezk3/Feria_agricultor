@@ -3,25 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/bootstrapcss.ejs') %>
+    <link rel="stylesheet" href="/css/style.css" />
     <title>Editar un Producto</title>
   </head>
 
   <body>
-    <h1>Edicion del Producto <%= producto.nombre %></h1>
-    <form action="/productos/<%=producto._id%>?_method=PUT" method="POST">
-      <label for="nombre">Nombre del producto</label>
-      <input type="text" name="nombre" id="nombre" placeholder="Nombre" />
-      <label for="precio">Precio</label>
-      <input type="number" id="precio" name="precio" placeholder="Precio" />
-      <label for="categoria">Seleccione la Categoria</label>
-      <select name="categoria" id="categoria">
-        <% for(let categoria of categorias){ %>
-        <option value="<%=categoria%>"><%=categoria%></option>
-        <% } %>
-      </select>
-      <button>Actualizar</button>
-    </form>
-
-    <a href="/productos/<%=producto._id%>">Cancelar</a>
+    <%- include('../partials/navbar.ejs') %>
+    <div class="container">
+      <div class="row">
+        <div class="col mt-3">
+          <h1 class="text-center mt-3">Edicion del producto: <%= producto.nombre %></h1>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="puestos">
+            <form action="/productos/<%=producto._id%>?_method=PUT" method="POST">
+              <label class="form_producto" for="nombre">Nombre del producto</label>
+              <input class="form_producto" type="text" name="nombre" id="nombre" placeholder="Nombre" />
+              <label class="form_producto" for="precio">Precio</label>
+              <input class="form_producto" type="number" id="precio" name="precio" placeholder="Precio" />
+              <label class="form_producto" for="categoria">Seleccione la Categoria</label>
+              <select class="form_producto" name="categoria" id="categoria">
+                <% for(let categoria of categorias){ %>
+                <option value="<%=categoria%>"><%=categoria%></option>
+                <% } %>
+               
+                </select>
+               <center><button class="boton btn btn-primary mt-4">Actualizar</button></center> 
+              </form>
+          
+              <center><a href="/productos/<%=producto._id%>" class="boton btn btn-danger mt-4">Cancelar</a></center>
+               
+              
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <%- include('../partials/bootstrapjs.ejs') %>
   </body>
 </html>
