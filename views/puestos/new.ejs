@@ -3,21 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/bootstrapcss.ejs') %>
+    <link rel="stylesheet" href="/css/style.css" />
     <title>Agregar un nuevo puesto</title>
   </head>
 
   <body>
-    <h1>Complete el formulario</h1>
-    <form action="/puestos" method="POST">
-      <div>
-        <label for="num">Numero del puesto</label>
-        <input type="number" name="numero" id="num" placeholder="Numero" />
+    <%- include('../partials/navbar.ejs') %>
+    <div class="container">
+      <div class="row">
+        <div class="col mt-3">
+          <h1 class="text-center mt-3">Complete el formulario</h1>
+        </div>
       </div>
-      <div>
-        <label for="due">Duenio:</label>
-        <input type="text" id="due" name="duenio" placeholder="duenio" />
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="puestos">
+            <form action="/puestos" method="POST">
+              <div>
+                <label class="form_producto" for="num">Numero del puesto:</label>
+                <input class="form_producto" type="number" name="numero" id="num" placeholder="Numero" />
+              </div>
+              <div>
+                <label class="form_producto" for="due">Dueño:</label>
+                <input class="form_producto" type="text" id="due" name="duenio" placeholder="Dueño" />
+              </div>
+              <center> <button class="boton btn btn-primary mt-4">Enviar</button></center>
+             
+            </form>
+          </div>
+        </div>
       </div>
-      <button>Submit</button>
-    </form>
+    </div>
+    
+    <%- include('../partials/bootstrapjs.ejs') %>
   </body>
 </html>
