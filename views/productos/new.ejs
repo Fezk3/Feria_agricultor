@@ -3,29 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/bootstrapcss.ejs') %>
+    <link rel="stylesheet" href="/css/style.css" />
     <title>Producto nuevo</title>
   </head>
 
   <body>
-    <h1>
-      Producto nuevo para el puesto numero:
-      <strong><%= puesto.numero %></strong>
-    </h1>
-    <form action="/puestos/<%= puesto._id %>/productos" method="POST">
-      <label for="nombre">Nombre del producto</label>
-      <input type="text" name="nombre" id="nombre" placeholder="Nombre" />
-      <label for="precio">Precio</label>
-      <input type="number" id="precio" name="precio" placeholder="Precio" />
-      <label for="categoria">Seleccione la Categoria</label>
-      <select name="categoria" id="categoria">
-        <% for(let categoria of categorias){ %>
-        <option value="<%=categoria%>"><%=categoria%></option>
-        <% } %>
-      </select>
-      <button>Crear</button>
-    </form>
-    <a href="/puestos/<%= puesto._id %>"
-      >Volver al puesto<%= puesto.numero %>
-    </a>
+    <%- include('../partials/navbar.ejs') %>
+    <div class="container">
+      <div class="row ">
+        <div class="col mt-3">
+          <h1 class=" text-center">
+            Producto nuevo para el puesto numero:
+            <strong><%= puesto.numero %></strong>
+          </h1>
+          <h3 class=" mt-3">Propietario: <%= puesto.duenio %></h3>
+          <h3 class=" mt-3">Productos que vende:</h3>
+        </div>
+      </div>
+    </div>
+   <div class="container">
+     <div class="row">
+       <div class="col">
+         <div class="puestos">
+          <form action="/puestos/<%= puesto._id %>/productos" method="POST">
+            <label for="nombre" class="form_producto">Nombre del producto</label>
+            <input type="text" class="form_producto" name="nombre" id="nombre" placeholder="Nombre" />
+            <label for="precio" class="form_producto">Precio</label>
+            <input type="number" class="form_producto" id="precio" name="precio" placeholder="Precio" />
+            <label for="categoria" class="form_producto">Seleccione la Categoria</label>
+            <select name="categoria" id="categoria" class="form_producto">
+              <% for(let categoria of categorias){ %>
+              <option value="<%=categoria%>"><%=categoria%></option>
+              <% } %>
+            </select>
+            <center>
+              <button class="boton btn btn-success mt-4">Crear</button>
+            </form>
+            <a href="/puestos/<%= puesto._id %>" class="boton btn btn-primary mt-4"
+              >Volver al puesto: <%= puesto.numero %>
+            </a>
+            </center>
+           
+         </div>
+       </div>
+     </div>
+   </div>
+   
+    <%- include('../partials/bootstrapjs.ejs') %>
   </body>
 </html>
