@@ -3,25 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/bootstrapcss.ejs') %>
+    <link rel="stylesheet" href="/css/style.css" />
     <title><%= producto.name %></title>
   </head>
 
   <body>
-    <h1><%= producto.nombre %></h1>
-    <ul>
-      <li>Price: $<%= producto.precio%></li>
-      <li>Categoria: <%= producto.categoria%></li>
-      <li>
-        Pertenece al Puesto:
-        <a href="/puestos/<%= producto.puesto._id %>"
-          ><%= producto.puesto.numero %></a
-        >
-      </li>
-    </ul>
-    <a href="/productos">Volver a todos los Productos</a>
-    <a href="/productos/<%=producto._id%>/edit">Editar Producto</a>
-    <form action="/productos/<%=producto._id%>?_method=DELETE" method="POST">
-      <button>Eliminar Producto</button>
-    </form>
+    <%- include('../partials/navbar.ejs') %>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="text-center mt-3"> Editanto el producto: <%= producto.nombre %></h1>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="npuestos">
+            <h4>
+              <ul>
+                <li>Precio: $<%= producto.precio%></li>
+                <li>Categoria: <%= producto.categoria%></li>
+                <li>
+                  Pertenece al Puesto:
+                  <a href="/puestos/<%= producto.puesto._id %>"
+                    ><%= producto.puesto.numero %></a
+                  >
+                </li>
+              </ul>
+            </h4>
+            <center>
+              <a href="/productos" class="boton btn btn-primary mt-3">Volver</a>
+              <br />
+              <a
+                href="/productos/<%=producto._id%>/edit"
+                class="boton btn btn-info mt-3"
+                >Editar Producto</a
+              >
+              <br />
+              <form
+                action="/productos/<%=producto._id%>?_method=DELETE"
+                method="POST"
+              >
+                <button class="boton btn btn-danger mt-3">
+                  Eliminar Producto
+                </button>
+              </form>
+            
+            </center>
+            
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
